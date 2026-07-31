@@ -1,0 +1,32 @@
+{
+  "name": "@ketryon/db",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "The data layer. Owns the MongoClient, the schemas, and every query.",
+  "exports": {
+    ".": "./src/index.ts",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "indexes": "tsx src/scripts/sync-indexes.ts",
+    "migrate": "tsx src/scripts/migrate.ts"
+  },
+  "dependencies": {
+    "@vercel/functions": "^3.7.6",
+    "mongodb": "^7.5.0",
+    "server-only": "^0.0.1",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "dotenv": "^17.2.3",
+    "mongodb-memory-server": "^11.2.0",
+    "tsx": "^4.23.1",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.10"
+  }
+}
