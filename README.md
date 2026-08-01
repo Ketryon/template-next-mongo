@@ -4,6 +4,7 @@ Next.js + MongoDB template where **the data layer is the product**. Apps are con
 
 ```
 packages/db/     @ketryon/db — the MongoClient, the schemas, every query
+packages/auth/   @ketryon/auth — Auth.js v5: email code + OAuth
 apps/web/        Next.js 16 app; calls the DAL, owns no database code
 ```
 
@@ -11,7 +12,7 @@ apps/web/        Next.js 16 app; calls the DAL, owns no database code
 
 ```bash
 pnpm install
-cp .env.example .env          # set MONGODB_URI + MONGODB_DB
+cp .env.example .env          # set MONGODB_URI, MONGODB_DB, AUTH_SECRET
 pnpm db:migrate
 pnpm db:indexes
 pnpm dev
@@ -32,6 +33,8 @@ pnpm dev
 | Layer | Contains | Never contains |
 |---|---|---|
 | `app/**/page.tsx` | calls the DAL directly | `fetch()` of its own API |
+| `packages/auth/**` | identity, sessions, tokens | domain queries |
+| `packages/db/auth-store.ts` | pre-session storage (auth only) | anything an app imports |
 | `app/**/actions.ts` | thin `"use server"` wrappers | data-access code |
 | `app/api/**/route.ts` | session → validate → DAL → return | queries, ownership checks |
 | `lib/session.ts` | resolve a trusted `Session` | authorisation decisions |

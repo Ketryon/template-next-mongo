@@ -24,7 +24,6 @@ describe("indexes", () => {
       email: "dupe@test.dev",
       name: "A",
       role: "user" as const,
-      passwordHash: "x",
       createdAt: new Date(),
       updatedAt: new Date(),
     };

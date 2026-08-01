@@ -29,6 +29,24 @@ export const indexSpecs: IndexSpec[] = [
       { key: { status: 1, _id: -1 }, name: "orders_status_cursor" },
     ],
   },
+  {
+    collection: "verificationCodes",
+    indexes: [
+      // One live code per address; the upsert in auth-store depends on this.
+      {
+        key: { email: 1 },
+        name: "verification_codes_email_unique",
+        unique: true,
+      },
+      // Mongo reaps expired codes. provsvaret created this index inline on
+      // every login attempt; declaring it here means it is applied once, by CI.
+      {
+        key: { expiresAt: 1 },
+        name: "verification_codes_ttl",
+        expireAfterSeconds: 0,
+      },
+    ],
+  },
 ];
 
 export interface SyncIndexesResult {
@@ -46,9 +64,15 @@ export async function syncIndexes({ prune = false } = {}): Promise<SyncIndexesRe
   const dropped: string[] = [];
 
   for (const spec of indexSpecs) {
-    const collection = db.collection(spec.collection);
+    // `collections` keys are camelCase; the driver needs the real name.
+    const collectionName =
+      spec.collection === "verificationCodes"
+        ? "verification_codes"
+        : spec.collection;
+
+    const collection = db.collection(collectionName);
     await collection.createIndexes(spec.indexes);
-    created.push(...spec.indexes.map((i) => `${spec.collection}.${i.name}`));
+    created.push(...spec.indexes.map((i) => `${collectionName}.${i.name}`));
 
     if (!prune) continue;
 
@@ -59,7 +83,7 @@ export async function syncIndexes({ prune = false } = {}): Promise<SyncIndexesRe
       if (index.name === "_id_" || !index.name) continue;
       if (declared.has(index.name)) continue;
       await collection.dropIndex(index.name);
-      dropped.push(`${spec.collection}.${index.name}`);
+      dropped.push(`${collectionName}.${index.name}`);
     }
   }
 

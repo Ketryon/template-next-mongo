@@ -1,6 +1,7 @@
 import { db } from "./client";
 import type { OrderDoc } from "./schemas/order";
 import type { UserDoc } from "./schemas/user";
+import type { VerificationCodeDoc } from "./schemas/verification";
 
 /**
  * The only place collection names are written.
@@ -13,6 +14,8 @@ import type { UserDoc } from "./schemas/user";
 export const collections = {
   users: () => db.collection<UserDoc>("users"),
   orders: () => db.collection<OrderDoc>("orders"),
+  verificationCodes: () =>
+    db.collection<VerificationCodeDoc>("verification_codes"),
 } as const;
 
 export type CollectionName = keyof typeof collections;

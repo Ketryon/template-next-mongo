@@ -6,6 +6,7 @@
   "description": "The data layer. Owns the MongoClient, the schemas, and every query.",
   "exports": {
     ".": "./src/index.ts",
+    "./auth": "./src/auth-store.ts",
     "./package.json": "./package.json"
   },
   "scripts": {

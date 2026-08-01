@@ -19,6 +19,11 @@ const eslintConfig = [
         {
           paths: [
             {
+              name: "@ketryon/db/auth",
+              message:
+                "@ketryon/db/auth is the pre-session store and exists for @ketryon/auth only. Use the DAL from @ketryon/db.",
+            },
+            {
               name: "mongodb",
               message:
                 "Import from @ketryon/db instead — the driver is owned by the data layer.",

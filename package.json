@@ -2,7 +2,7 @@
   "name": "template-next-mongo",
   "version": "0.1.0",
   "private": true,
-  "description": "Next.js + MongoDB template — the data layer is the product",
+  "description": "Next.js + MongoDB template \u2014 the data layer is the product",
   "packageManager": "pnpm@10.11.0",
   "engines": {
     "node": ">=20.19.0"
@@ -12,7 +12,7 @@
     "build": "pnpm -r build",
     "typecheck": "pnpm -r typecheck",
     "lint": "pnpm -r lint",
-    "test": "pnpm --filter @ketryon/db test",
+    "test": "pnpm -r test",
     "db:indexes": "pnpm --filter @ketryon/db indexes",
     "db:migrate": "pnpm --filter @ketryon/db migrate",
     "clean": "pnpm -r exec rm -rf .next dist"
