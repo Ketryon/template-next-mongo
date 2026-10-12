@@ -12,11 +12,17 @@ apps/web/        Next.js 16 app; calls the DAL, owns no database code
 
 ```bash
 pnpm install
-cp .env.example .env          # set MONGODB_URI, MONGODB_DB, AUTH_SECRET
+cp .env.example apps/web/.env.local   # read by `next dev`
+cp .env.example packages/db/.env      # read by db:migrate / db:indexes (dotenv)
+# set MONGODB_URI, MONGODB_DB and AUTH_SECRET (`openssl rand -base64 32`) in both
 pnpm db:migrate
 pnpm db:indexes
-pnpm dev
+pnpm dev                              # http://localhost:3000
 ```
+
+Requires Node 20.19+ and pnpm 10, plus a reachable MongoDB. Each package reads its own env file; a `.env` at the repo root is not loaded.
+
+`.env.example` lists every variable. Only `MONGODB_URI`, `MONGODB_DB` and `AUTH_SECRET` are required. Without `RESEND_API_KEY` the sign-in code is printed to the server log in development. GitHub and Google OAuth register only when both `AUTH_<PROVIDER>_ID` and `AUTH_<PROVIDER>_SECRET` are set.
 
 ## The seven rules
 
@@ -54,6 +60,7 @@ Two of those are load-bearing and easy to get wrong:
 | `pnpm dev` | run the web app |
 | `pnpm build` | build everything |
 | `pnpm typecheck` | tsc across the workspace |
+| `pnpm lint` | ESLint (`apps/web`) |
 | `pnpm test` | DAL tests against an in-memory MongoDB (no cluster needed) |
 | `pnpm db:indexes` | apply indexes — run from CI after deploy, `--prune` to drop undeclared |
 | `pnpm db:migrate` | apply pending migrations, tracked in `_migrations` |
@@ -77,4 +84,12 @@ App code imports `@ketryon/db` either way, so switching is a folder move plus on
 
 ## Verified
 
-`pnpm install && pnpm typecheck && pnpm test && pnpm build && pnpm lint` all pass on Node 20.19+ with Next 16.2.12, MongoDB driver 7.5, Zod 4.4.
+`pnpm typecheck` and `pnpm lint` pass with Next 16.4, React 19.3, MongoDB driver 7.7, Zod 4.6.
+
+## Built by Ketryon
+
+Built and used by [Ketryon](https://www.ketryon.com) — a developer on subscription for founders.
+
+## License
+
+MIT — see [LICENSE](./LICENSE).

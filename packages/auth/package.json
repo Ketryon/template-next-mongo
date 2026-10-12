@@ -16,22 +16,22 @@
   "dependencies": {
     "@ketryon/db": "workspace:*",
     "next-auth": "5.0.0-beta.32",
-    "resend": "^6.5.2",
+    "resend": "^6.32.1",
     "server-only": "^0.0.1",
-    "zod": "^4.4.3"
+    "zod": "^4.6.6"
   },
   "peerDependencies": {
     "next": ">=15",
     "react": ">=19"
   },
   "devDependencies": {
-    "@types/node": "^24.10.1",
-    "@types/react": "^19",
-    "mongodb": "^7.5.0",
-    "mongodb-memory-server": "^11.2.0",
-    "next": "16.2.12",
-    "react": "19.2.8",
+    "@types/node": "^24.19.2",
+    "@types/react": "^19.3.0",
+    "mongodb": "^7.7.0",
+    "mongodb-memory-server": "^11.3.0",
+    "next": "16.4.0",
+    "react": "19.3.0",
     "typescript": "^5.9.3",
-    "vitest": "^4.1.10"
+    "vitest": "^4.1.11"
   }
 }
