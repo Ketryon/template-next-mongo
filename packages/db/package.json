@@ -27,7 +27,7 @@
     "dotenv": "^17.4.2",
     "mongodb-memory-server": "^11.3.0",
     "tsx": "^4.23.15",
-    "typescript": "^5.9.3",
+    "typescript": "^7.0.0",
     "vitest": "^4.1.11"
   }
 }
