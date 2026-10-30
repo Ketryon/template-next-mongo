@@ -4,7 +4,7 @@
   "private": true,
   "description": "Next.js + MongoDB template \u2014 the data layer is the product",
   "license": "MIT",
-  "packageManager": "pnpm@10.11.0",
+  "packageManager": "pnpm@10.34.9",
   "engines": {
     "node": ">=20.19.0"
   },
